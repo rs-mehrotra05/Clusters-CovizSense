@@ -38,9 +38,6 @@ df.fillna(0, inplace=True)
 # Convert date to datetime
 df['date'] = pd.to_datetime(df['date'])
 
-
-
-
 #Feature Selection and Engineering
 
 # Mortality rate (%)
@@ -122,3 +119,41 @@ top_vaccinated = latest_df.sort_values(by='people_fully_vaccinated', ascending=F
 fig = px.pie(top_vaccinated, names='location', values='people_fully_vaccinated',
              title='People Fully Vaccinated (Top 5 Countries)')
 fig.show()
+
+## Review 2
+# Data Visualization
+
+#Positive Linear Realtionship
+
+# scatterplot of "total_cases" and "new_cases"
+sns.regplot(x="total_cases", y="new_cases",data=df, color='red')
+plt.ylim(0,)
+sns.regplot(x='total_deaths', y='new_deaths', data=df)
+
+# scatterplot total_cases vs total_deaths
+plt.scatter(df['total_deaths'], df['total_cases'])
+
+# Histogram of total_deaths
+plt.hist(df['total_deaths'])
+
+# Histogram of new_cases
+plt.hist(df['new_cases'])
+
+# Barchart Continents vs number of patients in each continent
+bardata= pd.DataFrame({'cont': ['Africa' , 'Asia', 'Oceania', 'Europe', 'North America', 'South America'], 'Num':[95058,79476,31035,92953,67351,24120]})
+bardata['cont']
+plt.bar(bardata['cont'],bardata['Num'],color='hotpink')
+plt.title("Bar chart,  Continents Vs No of pateints in each continent")
+plt.xlabel("Continents")
+plt.xticks(list(bardata['cont']))
+plt.ylabel("Frequency")
+plt.yticks(bardata['Num'])
+plt.show()
+
+# Piechart
+plt.pie(bardata['Num'])
+plt.pie(bardata['Num'], labels = bardata['cont'])
+plt.show()
+
+
+
