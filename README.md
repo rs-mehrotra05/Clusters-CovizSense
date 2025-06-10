@@ -1,3 +1,9 @@
+# Project Introduction
+Analyze global COVID‑19 trends using Pandas for data manipulation and Plotly/Matplotlib for interactive and static visualizations. Typical goals:
+Trend detection (cases, deaths, vaccinations over time)
+Outlier detection (e.g., via log transformation and boxplots)
+Country/continent comparisons and insights
+
 # Data analysis and Manipulation
 import plotly.graph_objs as go  
 import plotly.io as pio 
@@ -154,6 +160,75 @@ plt.show()
 plt.pie(bardata['Num'])
 plt.pie(bardata['Num'], labels = bardata['cont'])
 plt.show()
+
+# How to Run
+
+A. Setup
+
+1. Clone the repo and enter its directory.
+2. Create a virtual environment:
+python3 -m venv venv
+source venv/bin/activate   # (Linux/macOS)
+venv\Scripts\activate      # (Windows)
+3. Install dependencies:
+pip install -r requirements.txt
+requirements.txt should include:
+pandas, numpy, plotly, matplotlib, seaborn
+
+B. Download Data
+
+Ensure data/owid-covid-data.csv exists — either include it in the repo or run:
+import pandas as pd
+df = pd.read_csv('https://covid.ourworldindata.org/data/owid-covid-data.csv')
+df.to_csv('data/owid-covid-data.csv', index=False)
+
+C. Execute Notebook
+
+Run in Jupyter or Colab:
+jupyter notebook notebooks/covid_analysis.ipynb
+
+D. Run Python Scripts
+
+For modular tasks:
+python src/data_processing.py
+python src/visualization.py
+
+4. Data Analysis & Visualization Steps
+
+Data Cleaning
+Keep key columns: continent, date, cases, deaths, vaccinations
+Drop NaNs from continent, fill numeric with zeros
+Convert date to datetime format
+
+Feature Engineering
+mortality_rate = total_deaths / total_cases × 100
+vaccination_rate = fully_vaccinated / total_vaccinations × 100
+
+Filtering
+Remove negative entries
+
+Drop duplicates
+Assert no missing values remain
+
+Exploration & Insights
+
+Summary statistics (df.describe())
+Top 5 countries by total cases, top 10 by deaths
+Time-Series Visualizations
+Global new cases/deaths trends using px.line
+
+Outlier Handling
+Log-transform new_cases (log_new_cases = log1p(new_cases))
+Use box plots for outlier visualization
+
+Comparisons
+Bar plots (top countries by deaths, continent-wise plots)
+Pie charts (vaccination distribution among leading countries)
+Scatter and regression plots (total vs new cases/deaths)
+
+Histograms for distribution trends
+
+
 
 
 
